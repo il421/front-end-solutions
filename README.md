@@ -2,6 +2,11 @@
 
 A collection of framework-agnostic, TypeScript-first packages for modern web development.
 
+## Support
+
+If this project helped you, you can buy me a coffee:
+☕️ https://buymeacoffee.com/il421 
+
 ## Packages
 
 ### [@front-end-solutions/fetch-api-client](./packages/fetch-api-client)

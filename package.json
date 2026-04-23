@@ -1,0 +1,59 @@
+{
+  "name": "@front-end-solutions/monorepo",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "private": true,
+  "author": "Ilya Suglobov",
+  "dependencies": {},
+  "devDependencies": {
+    "@eslint/js": "9.8.0",
+    "@nx/eslint": "22.6.5",
+    "@nx/eslint-plugin": "22.6.5",
+    "@nx/js": "22.6.5",
+    "@nx/rollup": "22.6.5",
+    "@nx/vite": "22.6.5",
+    "@nx/vitest": "22.6.5",
+    "@nx/web": "22.6.5",
+    "@swc-node/register": "1.11.1",
+    "@swc/cli": "0.8.0",
+    "@swc/core": "1.15.8",
+    "@swc/helpers": "0.5.18",
+    "@types/node": "20.19.9",
+    "@vitest/coverage-v8": "4.1.0",
+    "@vitest/ui": "4.1.0",
+    "ajv": "8.0.0",
+    "eslint": "9.8.0",
+    "eslint-config-prettier": "10.0.0",
+    "jiti": "2.4.2",
+    "jsdom": "27.1.0",
+    "jsonc-eslint-parser": "2.1.0",
+    "nx": "22.6.5",
+    "prettier": "^3.8.1",
+    "rollup": "4.14.0",
+    "swc-loader": "0.1.15",
+    "tslib": "^2.3.0",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.40.0",
+    "verdaccio": "6.3.2",
+    "vite": "8.0.0",
+    "vite-plugin-dts": "4.5.0",
+    "vitest": "4.1.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "nx": {
+    "includedScripts": [],
+    "targets": {
+      "local-registry": {
+        "executor": "@nx/js:verdaccio",
+        "options": {
+          "port": 4873,
+          "config": ".verdaccio/config.yml",
+          "storage": "tmp/local-registry/storage"
+        }
+      }
+    }
+  }
+}

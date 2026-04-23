@@ -6,7 +6,7 @@ module.exports = withNx(
     outputPath: "./dist",
     tsConfig: "./tsconfig.lib.json",
     compiler: "swc",
-    format: ["esm"]
+    format: ["esm", "cjs"]
   },
   {
     // Provide additional rollup configuration here. See: https://rollupjs.org/configuration-options

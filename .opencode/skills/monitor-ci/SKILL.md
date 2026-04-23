@@ -90,9 +90,9 @@ If the user previously ran `/monitor-ci` in this session, you may have prior sta
 Three field sets control polling efficiency — use the lightest set that gives you what you need:
 
 ```yaml
-WAIT_FIELDS: 'cipeUrl,commitSha,cipeStatus'
-LIGHT_FIELDS: 'cipeStatus,cipeUrl,branch,commitSha,selfHealingStatus,verificationStatus,userAction,failedTaskIds,verifiedTaskIds,selfHealingEnabled,failureClassification,couldAutoApplyTasks,autoApplySkipped,autoApplySkipReason,shortLink,confidence,confidenceReasoning,hints,selfHealingSkippedReason,selfHealingSkipMessage'
-HEAVY_FIELDS: 'taskOutputSummary,suggestedFix,suggestedFixReasoning,suggestedFixDescription'
+WAIT_FIELDS: "cipeUrl,commitSha,cipeStatus"
+LIGHT_FIELDS: "cipeStatus,cipeUrl,branch,commitSha,selfHealingStatus,verificationStatus,userAction,failedTaskIds,verifiedTaskIds,selfHealingEnabled,failureClassification,couldAutoApplyTasks,autoApplySkipped,autoApplySkipReason,shortLink,confidence,confidenceReasoning,hints,selfHealingSkippedReason,selfHealingSkipMessage"
+HEAVY_FIELDS: "taskOutputSummary,suggestedFix,suggestedFixReasoning,suggestedFixDescription"
 ```
 
 The `ci_information` tool accepts `branch` (optional, defaults to current git branch), `select` (comma-separated field names), and `pageToken` (0-based pagination for long strings).
@@ -111,7 +111,7 @@ The decision script returns one of the following statuses. This table defines th
 | `cipe_canceled`         | Exit, CI was canceled                                                                                            |
 | `cipe_timed_out`        | Exit, CI timed out                                                                                               |
 | `polling_timeout`       | Exit, polling timeout reached                                                                                    |
-| `circuit_breaker`       | Exit, no progress after 5 consecutive polls                                                                      |
+| `circuit_breaker`       | Exit, no progress after 13 consecutive polls                                                                     |
 | `environment_rerun_cap` | Exit, environment reruns exhausted                                                                               |
 | `fix_auto_applying`     | Self-healing is handling it — just record `last_cipe_url`, enter wait mode. No MCP call or local git ops needed. |
 | `error`                 | Wait 60s and loop                                                                                                |

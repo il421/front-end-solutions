@@ -1,0 +1,32 @@
+{
+  "name": "@front-end-solutions/fetch-api-client",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.esm.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.esm.d.ts",
+  "author": "Ilya Suglobov",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.esm.d.ts",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!**/*.tsbuildinfo"
+  ],
+  "keywords": [
+    "fetch",
+    "http-client",
+    "middleware",
+    "typescript"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "fetch-api-client:build": "nx run @front-end-solutions/fetch-api-client:build",
+    "fetch-api-client:publish": "nx run @front-end-solutions/fetch-api-client:nx-release-publish"
+  }
+}

@@ -6,6 +6,29 @@ A lightweight, framework-agnostic HTTP client built on the native **Fetch API** 
 If this library helped you, you can buy me a coffee:
 ☕️ https://buymeacoffee.com/il421
 
+## Navigation
+
+- [Why?](#why)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Module Formats](#module-formats)
+  - [ESM](#esm)
+  - [CommonJS](#commonjs)
+- [Quick Start](#quick-start)
+  - [Quick Start (CommonJS)](#quick-start-commonjs)
+  - [Usage suggestion](#usage-suggestion-not-required)
+- [API Reference](#api-reference)
+  - [FetchApiClient](#fetchapiclient)
+  - [HTTP Methods](#http-methods)
+  - [Middleware](#middleware)
+  - [Error Handling](#error-handling)
+  - [Logger](#logger)
+- [Framework Examples](#framework-examples)
+  - [React](#react)
+  - [Angular](#angular)
+  - [Vue](#vue)
+- [License](#license)
+
 ## Why?
 
 Most HTTP clients either lock you into a specific framework, bundle unnecessary weight,
@@ -29,12 +52,12 @@ or lack a clean way to intercept requests and responses. This library gives you:
 - ⚡ **Zero framework coupling** — works with React, Angular, Vue, Node.js 18+,
   Deno, Bun, and any runtime that supports the Fetch API.
 
-- 📦 **Tiny footprint** — ships as a single ESM bundle with minimal dependencies.
+- 📦 **Tiny footprint** — ships with both ESM and CommonJS entry points and minimal dependencies.
 
 ## Requirements
 
 - **Runtime**: Node.js 18+, Deno, Bun, or any browser/runtime with native [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) support
-- **TypeScript**: 4.7+ (ESM-compatible types, `"moduleResolution": "bundler"` or `"node16"`)
+- **TypeScript**: 4.7+ (works for both ESM and CommonJS consumers; `"moduleResolution": "bundler"`, `"node16"`, or `"nodenext"` recommended)
 
 ## Installation
 
@@ -45,6 +68,26 @@ pnpm add @fe-libs/fetch-api-client
 # or
 yarn add @fe-libs/fetch-api-client
 ```
+
+## Module Formats
+
+This package exposes both **ESM** and **CommonJS** entry points via the package root.
+Use the package name (`@fe-libs/fetch-api-client`) rather than importing files from `dist` directly.
+
+### ESM
+
+```typescript
+import { FetchApiClient } from '@fe-libs/fetch-api-client';
+import type { IFetchApiClientEntity } from '@fe-libs/fetch-api-client';
+```
+
+### CommonJS
+
+```javascript
+const { FetchApiClient } = require('@fe-libs/fetch-api-client');
+```
+
+> The package uses named exports. There is no default export.
 
 ## Quick Start
 
@@ -75,6 +118,32 @@ export const api = client.initialize();
 // Use it anywhere — inline
 const { data: users } = await api.users.get<User[]>('/list');
 const { data: user } = await api.users.post<User>('/', { name: 'Alice' });
+```
+
+### Quick Start (CommonJS)
+
+```javascript
+const { FetchApiClient } = require('@fe-libs/fetch-api-client');
+
+const client = new FetchApiClient(
+  {
+    users: { baseURL: 'https://api.example.com/users' },
+    products: { baseURL: 'https://api.example.com/products' },
+  },
+  undefined,
+  {
+    getAccessToken: async () => process.env.ACCESS_TOKEN,
+  }
+);
+
+const api = client.initialize();
+
+async function main() {
+  const { data: users } = await api.users.get('/list');
+  console.log(users);
+}
+
+main().catch(console.error);
 ```
 
 ### Usage suggestion (not required)

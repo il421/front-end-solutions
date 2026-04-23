@@ -1,7 +1,6 @@
 # @front-end-solutions/fetch-api-client
 
 A lightweight, framework-agnostic HTTP client built on the native **Fetch API** — no Axios, no heavy dependencies.
-https://github.com/il421/front-end-solutions/tree/main/packages/fetch-api-client
 
 ## Why?
 

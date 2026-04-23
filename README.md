@@ -1,7 +1,6 @@
 # Front-End Solutions
 
 A collection of framework-agnostic, TypeScript-first packages for modern web development.
-https://github.com/il421/front-end-solutions
 
 ## Packages
 

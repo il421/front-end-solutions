@@ -2,6 +2,10 @@
 
 A lightweight, framework-agnostic HTTP client built on the native **Fetch API** — no Axios, no heavy dependencies.
 
+## Support
+If this library helped you, you can buy me a coffee:
+☕️ https://buymeacoffee.com/il421
+
 ## Why?
 
 Most HTTP clients either lock you into a specific framework, bundle unnecessary weight,

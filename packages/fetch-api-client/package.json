@@ -18,6 +18,7 @@
     "dist",
     "!**/*.tsbuildinfo"
   ],
+  "description": "A lightweight, framework-agnostic HTTP client built on the native Fetch API.",
   "keywords": [
     "fetch",
     "http-client",
@@ -25,6 +26,15 @@
     "typescript"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/il421/front-end-solutions.git",
+    "directory": "packages/fetch-api-client"
+  },
+  "homepage": "https://github.com/il421/front-end-solutions/tree/main/packages/fetch-api-client#readme",
+  "bugs": {
+    "url": "https://github.com/il421/front-end-solutions/issues"
+  },
   "scripts": {
     "fetch-api-client:build": "nx run @front-end-solutions/fetch-api-client:build",
     "fetch-api-client:publish": "nx run @front-end-solutions/fetch-api-client:nx-release-publish"

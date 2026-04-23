@@ -1,4 +1,4 @@
-# @front-end-solutions/fetch-api-client
+# @fe-libs/fetch-api-client
 
 A lightweight, framework-agnostic HTTP client built on the native **Fetch API** — no Axios, no heavy dependencies.
 
@@ -39,11 +39,11 @@ or lack a clean way to intercept requests and responses. This library gives you:
 ## Installation
 
 ```bash
-npm install @front-end-solutions/fetch-api-client
+npm install @fe-libs/fetch-api-client
 # or
-pnpm add @front-end-solutions/fetch-api-client
+pnpm add @fe-libs/fetch-api-client
 # or
-yarn add @front-end-solutions/fetch-api-client
+yarn add @fe-libs/fetch-api-client
 ```
 
 ## Quick Start
@@ -51,8 +51,8 @@ yarn add @front-end-solutions/fetch-api-client
 Define your API schema and create a client instance:
 
 ```typescript
-import { FetchApiClient } from '@front-end-solutions/fetch-api-client';
-import type { IFetchApiClientEntity } from '@front-end-solutions/fetch-api-client';
+import { FetchApiClient } from '@fe-libs/fetch-api-client';
+import type { IFetchApiClientEntity } from '@fe-libs/fetch-api-client';
 
 interface ApiSchema {
   users: IFetchApiClientEntity;
@@ -85,7 +85,7 @@ Inline usage (as shown above) works equally well.
 
 ```typescript
 // api/users.api.ts
-import type { IFetchApiClientEntity } from '@front-end-solutions/fetch-api-client';
+import type { IFetchApiClientEntity } from '@fe-libs/fetch-api-client';
 
 export interface UserDto {
   id: string;
@@ -288,7 +288,7 @@ Implement `IMiddleware<FetchApiClientRequest>` for request middleware or
 
 ```typescript
 // middleware/correlation-id.middleware.ts
-import type { IMiddleware, FetchApiClientRequest } from '@front-end-solutions/fetch-api-client';
+import type { IMiddleware, FetchApiClientRequest } from '@fe-libs/fetch-api-client';
 
 export class CorrelationIdMiddleware implements IMiddleware<FetchApiClientRequest> {
   onFulfilled = (config: FetchApiClientRequest): FetchApiClientRequest => ({
@@ -301,8 +301,8 @@ export class CorrelationIdMiddleware implements IMiddleware<FetchApiClientReques
 }
 
 // middleware/error-log.middleware.ts
-import type { IMiddleware, FetchApiClientResponse } from '@front-end-solutions/fetch-api-client';
-import type { ILogger } from '@front-end-solutions/fetch-api-client';
+import type { IMiddleware, FetchApiClientResponse } from '@fe-libs/fetch-api-client';
+import type { ILogger } from '@fe-libs/fetch-api-client';
 
 export class ErrorLogMiddleware implements IMiddleware<FetchApiClientResponse<any>> {
   constructor(private readonly logger: ILogger) {}
@@ -352,7 +352,7 @@ const client = new FetchApiClient<ApiSchema>(
 Catch it by status code or use `FetchApiError.isFetchApError` to narrow the type:
 
 ```typescript
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 
 try {
   const { data } = await api.users.get<User>('/123');
@@ -386,7 +386,7 @@ Extend it for each HTTP status your app cares about:
 
 ```typescript
 // errors/api-errors.ts
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 
 export class NotFoundError<D = unknown> extends FetchApiError<D> {
   constructor(detail?: D, url?: string, traceId?: string) {
@@ -427,7 +427,7 @@ import {
   FetchApiError,
   type IMiddleware,
   type FetchApiClientResponse,
-} from '@front-end-solutions/fetch-api-client';
+} from '@fe-libs/fetch-api-client';
 import {
   NotFoundError,
   AuthorisationError,
@@ -455,7 +455,7 @@ export class ExceptionFilterMiddleware implements IMiddleware<FetchApiClientResp
 Wire it up instead of (or after) the default one:
 
 ```typescript
-import { FetchApiClientBase } from '@front-end-solutions/fetch-api-client';
+import { FetchApiClientBase } from '@fe-libs/fetch-api-client';
 import { ExceptionFilterMiddleware } from './middleware/exception-filter.middleware';
 
 // Use FetchApiClientBase directly to skip the auto-wired DefaultExceptionFilterMiddleware
@@ -470,7 +470,7 @@ Then catch with precise `instanceof` checks:
 
 ```typescript
 import { NotFoundError, AuthorisationError, ValidationError } from './errors/api-errors';
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 
 try {
   const data = await usersApi.getUser('123');
@@ -496,7 +496,7 @@ try {
 Pass a custom logger via `options.logger` to integrate with your logging infrastructure:
 
 ```typescript
-import type { ILogger } from '@front-end-solutions/fetch-api-client';
+import type { ILogger } from '@fe-libs/fetch-api-client';
 
 const logger: ILogger = {
   info: (msg, ...args) => myLogger.info(msg, ...args),
@@ -523,7 +523,7 @@ The example below uses the optional `UsersApi` class — inline calls to `api.us
 ```tsx
 // hooks/useUsers.ts
 import { useState, useEffect } from 'react';
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 import { usersApi } from '../api';
 import type { UserDto } from '../api/users.api';
 
@@ -584,8 +584,8 @@ The example below uses the optional `UsersApi` class — calling `apiClient.user
 
 ```typescript
 // api.client.ts
-import { FetchApiClient } from '@front-end-solutions/fetch-api-client';
-import type { IFetchApiClientEntity } from '@front-end-solutions/fetch-api-client';
+import { FetchApiClient } from '@fe-libs/fetch-api-client';
+import type { IFetchApiClientEntity } from '@fe-libs/fetch-api-client';
 import { UsersApi } from './users.api';
 
 interface ApiSchema {
@@ -631,7 +631,7 @@ import { AsyncPipe } from '@angular/common';
 import { UserService } from '../services/user.service';
 import type { UserDto } from '../api/users.api';
 import { Observable, catchError, of } from 'rxjs';
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 
 @Component({
   selector: 'app-user-list',
@@ -672,7 +672,7 @@ The example below uses the optional `UsersApi` class — calling `api.users.*` i
 ```typescript
 // composables/useUsers.ts
 import { ref, onMounted } from 'vue';
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 import { usersApi } from '../api';
 import type { UserDto } from '../api/users.api';
 
@@ -722,8 +722,8 @@ The example below uses the optional `UsersApi` class — injecting raw `api.user
 ```typescript
 // plugins/api.plugin.ts
 import { type App, type InjectionKey } from 'vue';
-import { FetchApiClient } from '@front-end-solutions/fetch-api-client';
-import type { IFetchApiClientEntity } from '@front-end-solutions/fetch-api-client';
+import { FetchApiClient } from '@fe-libs/fetch-api-client';
+import type { IFetchApiClientEntity } from '@fe-libs/fetch-api-client';
 import { UsersApi } from '../api/users.api';
 
 interface ApiSchema {
@@ -765,7 +765,7 @@ createApp(App).use(apiPlugin).mount('#app');
 ```typescript
 // composables/useUsers.ts
 import { ref, onMounted, inject } from 'vue';
-import { FetchApiError } from '@front-end-solutions/fetch-api-client';
+import { FetchApiError } from '@fe-libs/fetch-api-client';
 import { ApiKey } from '../plugins/api.plugin';
 import type { UserDto } from '../api/users.api';
 

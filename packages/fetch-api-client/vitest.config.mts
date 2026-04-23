@@ -4,7 +4,7 @@ export default defineConfig(() => ({
   root: __dirname,
   cacheDir: "../../node_modules/.vite/packages/fetch-api-client",
   test: {
-    name: "@front-end-solutions/fetch-api-client",
+    name: "@fe-libs/fetch-api-client",
     watch: false,
     globals: true,
     environment: "node",

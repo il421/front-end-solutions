@@ -1,5 +1,3 @@
-# Front-End Solutions
-
 A collection of framework-agnostic, TypeScript-first packages for modern web development.
 
 ## Support
@@ -9,7 +7,7 @@ If this project helped you, you can buy me a coffee:
 
 ## Packages
 
-### [@front-end-solutions/fetch-api-client](./packages/fetch-api-client)
+### [@fe-libs/fetch-api-client](./packages/fetch-api-client)
 
 A lightweight HTTP client built on the native Fetch API with composable middleware pipeline, built-in authentication, and zero framework coupling.
 
@@ -28,7 +26,7 @@ A lightweight HTTP client built on the native Fetch API with composable middlewa
 Each package is independently versioned and can be installed separately:
 
 ```bash
-npm install @front-end-solutions/fetch-api-client
+npm install @fe-libs/fetch-api-client
 ```
 
 ## Development
@@ -46,7 +44,7 @@ nx run-many --target=build
 nx run-many --target=test
 
 # Build specific package
-nx run @front-end-solutions/fetch-api-client:build
+nx run @fe-libs/fetch-api-client:build
 ```
 
 ## License

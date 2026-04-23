@@ -1,5 +1,5 @@
 {
-  "name": "@front-end-solutions/fetch-api-client",
+  "name": "@fe-libs/fetch-api-client",
   "version": "0.0.2",
   "type": "module",
   "main": "./dist/index.esm.js",
@@ -28,16 +28,16 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/il421/front-end-solutions.git",
+    "url": "https://github.com/il421/fe-libs.git",
     "directory": "packages/fetch-api-client"
   },
-  "homepage": "https://github.com/il421/front-end-solutions/tree/main/packages/fetch-api-client#readme",
+  "homepage": "https://github.com/il421/fe-libs/tree/main/packages/fetch-api-client#readme",
   "bugs": {
-    "url": "https://github.com/il421/front-end-solutions/issues"
+    "url": "https://github.com/il421/fe-libs/issues"
   },
   "scripts": {
-    "fetch-api-client:build": "nx run @front-end-solutions/fetch-api-client:build",
-    "fetch-api-client:publish": "nx run @front-end-solutions/fetch-api-client:nx-release-publish"
+    "fetch-api-client:build": "nx run @fe-libs/fetch-api-client:build",
+    "fetch-api-client:publish": "nx run @fe-libs/fetch-api-client:nx-release-publish"
   },
   "dependencies": {}
 }

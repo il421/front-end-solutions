@@ -66,14 +66,18 @@
   ],
   "analytics": false,
   "release": {
+    "projects": ["@fe-libs/fetch-api-client"],
+    "releaseTagPattern": "@fe-libs/fetch-api-client@{version}",
     "version": {
-      "preVersionCommand": "npx nx run-many -t build"
+      "preVersionCommand": "npx nx run-many -t build",
+      "conventionalCommits": true
     },
     "changelog": {
-      "workspaceChangelog": {
-        "file": false,
-        "createRelease": "github"
-      }
+      "projectChangelogs": {
+        "createRelease": "github",
+        "entryWhenNoChanges": false
+      },
+      "workspaceChangelog": false
     }
   },
   "targetDefaults": {

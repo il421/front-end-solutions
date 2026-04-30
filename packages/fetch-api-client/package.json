@@ -40,5 +40,15 @@
     "fetch-api-client:build": "nx run @fe-libs/fetch-api-client:build",
     "fetch-api-client:publish": "nx run @fe-libs/fetch-api-client:nx-release-publish"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "nx": {
+    "targets": {
+      "nx-release-publish": {
+        "executor": "@nx/js:release-publish",
+        "options": {
+          "packageRoot": "packages/fetch-api-client"
+        }
+      }
+    }
+  }
 }

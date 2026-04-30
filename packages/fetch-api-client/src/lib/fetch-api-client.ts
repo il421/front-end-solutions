@@ -20,8 +20,7 @@ export class FetchApiClient<
   ) {
     const request = [
       new AuthorizationMiddleware(
-        options?.getAccessToken,
-        options?.noAuthHeader
+        options
       ),
       ...(middlewares?.request ?? [])
     ];

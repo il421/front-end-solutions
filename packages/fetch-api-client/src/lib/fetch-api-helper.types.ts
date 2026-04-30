@@ -54,6 +54,8 @@ export interface FetchApiClientHelperOptions {
   noAuthHeader?: string;
   traceId?: string;
   logger?: ILogger;
+  authHeader?: string;
+  tokenSchema?: string;
 }
 
 export type FetchApiClientRequest = Pick<RequestInit, "method" | "headers"> & {

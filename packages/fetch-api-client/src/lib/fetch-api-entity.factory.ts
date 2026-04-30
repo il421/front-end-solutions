@@ -2,6 +2,7 @@ import { buildQueryString, getJoinedUrl } from "./utils/query.utils";
 
 import { FetchApiError } from "./errors";
 import {
+  ACCEPT_HEADER,
   CONTENT_TYPE,
   CONTENT_TYPE_HEADER
 } from "./fetch-api-client.constants";
@@ -20,12 +21,14 @@ export class FetchApiEntityFactory implements IFetchApiClientEntity {
   constructor(
     private baseUrl: string,
     private readonly middlewares: FetchApiClientHelperMiddlewares
-  ) {}
+  ) {
+    this.defaultHeaders = new Headers({
+      [ACCEPT_HEADER]: CONTENT_TYPE,
+      [CONTENT_TYPE_HEADER]: CONTENT_TYPE
+    });
+  }
 
-  private readonly defaultHeaders: Record<string, string> = {
-    Accept: CONTENT_TYPE,
-    [CONTENT_TYPE_HEADER]: CONTENT_TYPE
-  };
+  private readonly defaultHeaders: Headers;
 
   protected client: typeof fetch = fetch;
 
@@ -112,12 +115,15 @@ export class FetchApiEntityFactory implements IFetchApiClientEntity {
     try {
       const url = getJoinedUrl(this.baseUrl, _url);
 
+      const headers = this.defaultHeaders;
+      const initHeaders = new Headers(init.headers);
+      initHeaders?.forEach((value: string, key: string) => {
+        headers.append(key, value);
+      });
+
       const processedRequest = await this.applyRequestMiddlewares({
         url,
-        headers: { ...this.defaultHeaders, ...init.headers } as Record<
-          string,
-          string
-        >,
+        headers: headers,
         method: init.method
       });
 

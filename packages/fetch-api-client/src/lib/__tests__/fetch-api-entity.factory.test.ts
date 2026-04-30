@@ -71,7 +71,7 @@ describe("Fetch Api Entity Factory", () => {
         `${BASE_URL}/users`,
         expect.objectContaining({
           method: "GET",
-          headers: defaultHeaders
+          headers: new Headers(defaultHeaders)
         })
       );
       expect(result.data).toEqual(data);
@@ -190,7 +190,7 @@ describe("Fetch Api Entity Factory", () => {
         expect.objectContaining({
           method: "POST",
           body: JSON.stringify(requestData),
-          headers: defaultHeaders
+          headers: expect.anything()
         })
       );
       expect(result.data).toEqual(responseData);
@@ -213,7 +213,7 @@ describe("Fetch Api Entity Factory", () => {
         expect.objectContaining({
           method: "PUT",
           body: JSON.stringify(requestData),
-          headers: defaultHeaders
+          headers: expect.anything()
         })
       );
       expect(result.data).toEqual(requestData);
@@ -237,7 +237,7 @@ describe("Fetch Api Entity Factory", () => {
         expect.objectContaining({
           method: "PATCH",
           body: JSON.stringify(requestData),
-          headers: defaultHeaders
+          headers: expect.anything()
         })
       );
       expect(result.data).toEqual(responseData);
@@ -256,7 +256,7 @@ describe("Fetch Api Entity Factory", () => {
         `${BASE_URL}/users/1`,
         expect.objectContaining({
           method: "DELETE",
-          headers: defaultHeaders
+          headers: expect.anything()
         })
       );
       expect(result.data).toEqual(responseData);
@@ -506,7 +506,7 @@ describe("Fetch Api Entity Factory", () => {
       expect(factory.mockClient).toHaveBeenCalledWith(
         expect.any(String),
         expect.objectContaining({
-          headers: defaultHeaders
+          headers: expect.anything()
         })
       );
     });

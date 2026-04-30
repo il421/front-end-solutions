@@ -1,5 +1,6 @@
 import { FetchApiClientRequest } from "../../fetch-api-helper.types.js";
 import { AuthorizationMiddleware } from "../authorization.middleware";
+import { AUTH_HEADER } from "../../fetch-api-client.constants";
 
 const NO_AUTH_HEADER = "X-Test";
 const TOKEN = "123";
@@ -9,48 +10,46 @@ const getAccessToken = () => Promise.resolve(TOKEN);
 
 describe("AuthorizationMiddleware", () => {
   test("should remove noAuthHeader from headers", async () => {
-    const authMiddleware = new AuthorizationMiddleware(
-      getAccessToken,
-      NO_AUTH_HEADER
-    );
+    const authMiddleware = new AuthorizationMiddleware({ getAccessToken, noAuthHeader: NO_AUTH_HEADER });
 
     const result = await authMiddleware.onFulfilled?.({
       url: TEST_URL,
       headers: { [NO_AUTH_HEADER]: "some-value" }
     });
 
-    expect(result.headers).toEqual({});
+    const headers = new Headers(result.headers);
+    expect(headers.has(NO_AUTH_HEADER)).toBeFalsy();
   });
 
   test("should add Authorization header with bearer token", async () => {
-    const authMiddleware = new AuthorizationMiddleware(getAccessToken);
+    const authMiddleware = new AuthorizationMiddleware({ getAccessToken });
 
     const result = await authMiddleware.onFulfilled?.({
       url: TEST_URL,
       headers: {}
     });
 
-    expect(result.headers).toEqual({ Authorization: `Bearer ${TOKEN}` });
+    const headers = new Headers(result.headers);
+    expect(headers.get(AUTH_HEADER)).toBe(`Bearer ${TOKEN}`);
   });
 
   test("should preserve existing headers when adding Authorization", async () => {
-    const authMiddleware = new AuthorizationMiddleware(getAccessToken);
+    const authMiddleware = new AuthorizationMiddleware({ getAccessToken });
 
     const result = await authMiddleware.onFulfilled?.({
       url: TEST_URL,
       headers: { "X-Custom": "value" }
     });
 
-    expect(result.headers).toEqual({
-      "X-Custom": "value",
-      Authorization: `Bearer ${TOKEN}`
-    });
+    const headers = new Headers(result.headers);
+    expect(headers.get(AUTH_HEADER)).toBe(`Bearer ${TOKEN}`);
+    expect(headers.get("X-Custom")).toBe("value");
   });
 
   test("should return config unchanged when no token is available", async () => {
-    const authMiddleware = new AuthorizationMiddleware(() =>
-      Promise.resolve(undefined)
-    );
+    const authMiddleware = new AuthorizationMiddleware({
+      getAccessToken: () => Promise.resolve(undefined)
+    });
 
     const input: FetchApiClientRequest = {
       url: TEST_URL,
@@ -72,7 +71,7 @@ describe("AuthorizationMiddleware", () => {
   });
 
   test("should preserve non-header config properties", async () => {
-    const authMiddleware = new AuthorizationMiddleware(getAccessToken);
+    const authMiddleware = new AuthorizationMiddleware({ getAccessToken });
 
     const result = await authMiddleware.onFulfilled?.({
       url: TEST_URL,
@@ -82,6 +81,7 @@ describe("AuthorizationMiddleware", () => {
 
     expect(result.method).toBe("POST");
     expect(result.url).toBe(TEST_URL);
-    expect(result.headers).toEqual({ Authorization: `Bearer ${TOKEN}` });
+    const headers = new Headers(result.headers);
+    expect(headers.get(AUTH_HEADER)).toBe(`Bearer ${TOKEN}`);
   });
 });

@@ -1,4 +1,4 @@
-import { ILogger, Logger } from "./logger";
+import { ILogger } from "./logger";
 import { FetchApiEntityFactory } from "./fetch-api-entity.factory";
 import {
   FetchApiEndpointsConfig,
@@ -17,11 +17,11 @@ export class FetchApiClientBase<
   constructor(
     private readonly endpoints: FetchApiEndpointsConfig<Keys>,
     private readonly middlewares?: FetchApiClientHelperMiddlewares,
-    private readonly logger: ILogger = new Logger()
+    private readonly logger?: ILogger
   ) {
     this.commonRequestMiddlewares = this.middlewares?.request ?? [];
     this.commonResponseMiddlewares = this.middlewares?.respond ?? [];
-    this.logger.info("FetchApiClient initialized.");
+    this.logger?.info("FetchApiClient initialized.");
   }
 
   private readonly commonRequestMiddlewares: IMiddleware<FetchApiClientRequest>[];
@@ -51,7 +51,7 @@ export class FetchApiClientBase<
     const overrideRequestMiddlewares = overrideMiddlewares?.request ?? [];
     const overrideResponseMiddlewares = overrideMiddlewares?.respond ?? [];
 
-    this.logger.info(`FetchApiEntityFactory initialized for ${key} API.`);
+    this.logger?.info(`FetchApiEntityFactory initialized for ${key} API.`);
 
     return new FetchApiEntityFactory(baseURL, {
       request: [

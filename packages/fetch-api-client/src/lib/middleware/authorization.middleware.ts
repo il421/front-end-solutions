@@ -1,6 +1,7 @@
-import { ILogger, Logger } from "../logger";
-
-import { FetchApiClientHelperOptions, FetchApiClientRequest } from "../fetch-api-helper.types";
+import {
+  FetchApiClientHelperOptions,
+  FetchApiClientRequest
+} from "../fetch-api-helper.types";
 import { IMiddleware } from "./middleware.inteface";
 import {
   AUTH_HEADER,
@@ -9,11 +10,8 @@ import {
 
 export class AuthorizationMiddleware implements IMiddleware<FetchApiClientRequest> {
   constructor(private options?: FetchApiClientHelperOptions) {
-    this.logger = options?.logger ?? new Logger();
-    this.logger.info("AuthorizationMiddleware initialized.");
+    this.options?.logger?.info("AuthorizationMiddleware initialized.");
   }
-
-  private readonly logger: ILogger;
 
   onFulfilled = async (
     config: FetchApiClientRequest

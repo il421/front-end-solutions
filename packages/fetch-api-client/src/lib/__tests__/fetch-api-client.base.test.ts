@@ -44,7 +44,7 @@ describe("Fetch Api Client Base", () => {
 
   describe("initialize", () => {
     test("should create an API instance for each endpoint", () => {
-      const helper = new FetchApiClientBase(mockEndpoints, undefined, logger);
+      const helper = new FetchApiClientBase(mockEndpoints, undefined);
 
       const api = helper.initialize();
 
@@ -53,7 +53,7 @@ describe("Fetch Api Client Base", () => {
     });
 
     test("should create FetchApiClientEntityFactory for each endpoint with correct baseURL", () => {
-      const helper = new FetchApiClientBase(mockEndpoints, undefined, logger);
+      const helper = new FetchApiClientBase(mockEndpoints, undefined);
 
       helper.initialize();
 
@@ -81,11 +81,9 @@ describe("Fetch Api Client Base", () => {
         onFulfilled: config => config
       };
 
-      const helper = new FetchApiClientBase(
-        mockEndpoints,
-        { request: [requestMiddleware] },
-        logger
-      );
+      const helper = new FetchApiClientBase(mockEndpoints, {
+        request: [requestMiddleware]
+      });
 
       helper.initialize();
 
@@ -110,11 +108,9 @@ describe("Fetch Api Client Base", () => {
         onRejected: error => error
       };
 
-      const helper = new FetchApiClientBase(
-        mockEndpoints,
-        { respond: [responseMiddleware] },
-        logger
-      );
+      const helper = new FetchApiClientBase(mockEndpoints, {
+        respond: [responseMiddleware]
+      });
 
       helper.initialize();
 
@@ -161,11 +157,9 @@ describe("Fetch Api Client Base", () => {
         }
       };
 
-      const helper = new FetchApiClientBase(
-        endpointsWithOverride,
-        { request: [commonRequestMiddleware] },
-        logger
-      );
+      const helper = new FetchApiClientBase(endpointsWithOverride, {
+        request: [commonRequestMiddleware]
+      });
 
       helper.initialize();
 
@@ -210,11 +204,9 @@ describe("Fetch Api Client Base", () => {
         }
       };
 
-      const helper = new FetchApiClientBase(
-        endpointsWithOverride,
-        { respond: [commonResponseMiddleware] },
-        logger
-      );
+      const helper = new FetchApiClientBase(endpointsWithOverride, {
+        respond: [commonResponseMiddleware]
+      });
 
       helper.initialize();
 
@@ -233,7 +225,7 @@ describe("Fetch Api Client Base", () => {
     });
 
     test("should work with no middlewares passed", () => {
-      const helper = new FetchApiClientBase(mockEndpoints, undefined, logger);
+      const helper = new FetchApiClientBase(mockEndpoints, undefined);
 
       helper.initialize();
 
@@ -249,7 +241,7 @@ describe("Fetch Api Client Base", () => {
 
   describe("createInstance", () => {
     test("should create a single FetchApiClientEntityFactory instance", () => {
-      const helper = new FetchApiClientBase(mockEndpoints, undefined, logger);
+      const helper = new FetchApiClientBase(mockEndpoints, undefined);
 
       const instance = helper.createInstance("user", {
         baseURL: "https://localhost:7760/user"
@@ -274,11 +266,9 @@ describe("Fetch Api Client Base", () => {
         onFulfilled: config => config
       };
 
-      const helper = new FetchApiClientBase(
-        mockEndpoints,
-        { request: [commonMiddleware] },
-        logger
-      );
+      const helper = new FetchApiClientBase(mockEndpoints, {
+        request: [commonMiddleware]
+      });
 
       helper.createInstance("custom", {
         baseURL: "https://localhost:7760/custom",

@@ -1,4 +1,4 @@
-import { ILogger, Logger } from "../logger";
+import { ILogger } from "../logger";
 
 import { FetchApiError } from "../errors";
 import { FetchApiClientResponse } from "../fetch-api-helper.types";
@@ -8,10 +8,10 @@ export class DefaultExceptionFilterMiddleware implements IMiddleware<
   FetchApiClientResponse<unknown>
 > {
   constructor(
-    private traceId?: string,
-    private readonly logger: ILogger = new Logger()
+    private readonly traceId?: string,
+    private readonly logger?: ILogger
   ) {
-    this.logger.info("DefaultExceptionFilterMiddleware initialized.");
+    this?.logger?.info("DefaultExceptionFilterMiddleware initialized.");
   }
 
   public onRejected = (res: FetchApiClientResponse<unknown>) => {

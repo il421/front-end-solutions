@@ -68,6 +68,12 @@
   "release": {
     "version": {
       "preVersionCommand": "npx nx run-many -t build"
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "file": false,
+        "createRelease": "github"
+      }
     }
   },
   "targetDefaults": {

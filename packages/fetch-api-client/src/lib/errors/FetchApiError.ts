@@ -31,7 +31,7 @@ export class FetchApiError<Details = unknown> extends Error {
       const messages = Object.keys(details).map(
         fieldName => (details as Record<string, string>)[fieldName]
       );
-      return messages.join("/n");
+      return messages.join("\n");
     }
     return details?.toString();
   };

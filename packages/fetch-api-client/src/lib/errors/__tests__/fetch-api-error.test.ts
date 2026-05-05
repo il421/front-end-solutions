@@ -11,13 +11,13 @@ describe("FetchApiError", () => {
     it("returns joined values when details is a plain object", () => {
       const input = { a: "err1", b: "err2" };
       const result = FetchApiError.getErrorDetails(input);
-      expect(result).toBe("err1/nerr2");
+      expect(result).toBe("err1, err2");
     });
 
     it("works with non-string values inside the object", () => {
       const input = { a: 1, b: 2, c: 3 };
       const result = FetchApiError.getErrorDetails(input);
-      expect(result).toBe("1/n2/n3");
+      expect(result).toBe("1, 2, 3");
     });
 
     it("returns stringified value when details is a Date", () => {

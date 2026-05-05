@@ -23,7 +23,7 @@ export class FetchApiClient<
     ];
 
     const respond = [
-      new DefaultExceptionFilterMiddleware(options?.traceId),
+      new DefaultExceptionFilterMiddleware(options?.traceId, options?.logger),
       ...(middlewares?.respond ?? [])
     ];
     super(

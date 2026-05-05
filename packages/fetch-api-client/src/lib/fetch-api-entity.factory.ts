@@ -115,7 +115,7 @@ export class FetchApiEntityFactory implements IFetchApiClientEntity {
     try {
       const url = getJoinedUrl(this.baseUrl, _url);
 
-      const headers = this.defaultHeaders;
+      const headers = new Headers(this.defaultHeaders);
       const initHeaders = new Headers(init.headers);
       initHeaders?.forEach((value: string, key: string) => {
         headers.append(key, value);
